@@ -1,7 +1,6 @@
 import numpy as np
 import tensorflow as tf
 from tensorflow.keras import layers, models
-
 # Step 1: Create network architecture
 L = 3
 n = [4, 8, 4, 1]  # 4 input features, 8 neurons in layer 1, 4 in layer 2, 1 output
