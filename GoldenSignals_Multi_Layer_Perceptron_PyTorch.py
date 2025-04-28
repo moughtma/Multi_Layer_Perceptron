@@ -2,6 +2,9 @@ import torch
 import torch.nn as nn
 import torch.optim as optim
 
+# Device configuration
+device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+
 # Step 1: Create network architecture
 class RiskClassifier(nn.Module):
     def __init__(self):
@@ -51,7 +54,9 @@ def prepare_data():
 
     # Labels: 0 = OK, 1 = At risk
     y = torch.tensor([0, 1, 0, 1, 0, 1, 0, 1, 0, 1], dtype=torch.float32).unsqueeze(1)
-    return X, y
+
+    # Move data to device (CPU or GPU)
+    return X.to(device), y.to(device)
 
 # Step 4. Create the activation function
 # (Handled inside the model with nn.ReLU() and nn.Sigmoid())
@@ -110,8 +115,10 @@ def evaluate_model(model, X, y):
 # Load training data and labels
 A0, Y = prepare_data()
 
+# Create and move model to device
+model = RiskClassifier().to(device)
+
 # Train the model
-model = RiskClassifier()
 train_model(model, A0, Y, learning_rate=0.001, epochs=2000)
 
 # Evaluate the trained model
