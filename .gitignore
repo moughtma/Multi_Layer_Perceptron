@@ -1,0 +1,5 @@
+*.lib
+*.pyd
+*.dll
+tf-gpu/
+__pycache__/
